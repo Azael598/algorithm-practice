@@ -59,14 +59,19 @@ public class superEggDrop {
                 for (int i = 2; i <= K; i++) {
                     int left=1;
                     int right=j;
-                    while(left<right){
-                        int mid=left+(right-left+1)/2;
+                    while(left<=right){
+                        int mid=left+(right-left)/2;
                         int breakCount =dp[i-1][mid-1];
                         int notBreakCount=dp[i][j-mid];
+                        if (notBreakCount==breakCount){
+                            left=mid;
+                            break;
+                        }
                         if (breakCount>notBreakCount){
                             right=mid-1;
-                        }else {
-                            left=mid;
+                        }
+                        else {
+                            left=mid+1;
                         }
                     }
                     dp[i][j] = Math.min(dp[i][j], Math.max(dp[i - 1][left - 1], dp[i][j - left]) + 1);
